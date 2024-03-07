@@ -9,8 +9,37 @@ const app = new App({
   receiver: awsLambdaReceiver,
 });
 
+const block = (message) => {
+  return {
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `Hey there <@${message.user}>!`,
+        },
+        accessory: {
+          type: "button",
+          text: {
+            type: "plain_text",
+            text: "Click Me",
+          },
+          action_id: "button_click",
+        },
+      },
+    ],
+  };
+};
+
 app.message("hello", async ({ message, say }) => {
-  await say(`Hey there <@${message.user}>!`);
+  const response = block(message);
+  await say(response);
+});
+
+app.action("button_click", async ({ ack, body, say }) => {
+  await ack();
+  console.log(JSON.stringify(body, null, 2));
+  await say(`Button clicked by <@${body.user.id}>`);
 });
 
 module.exports.handler = async (event, context, callback) => {
