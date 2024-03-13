@@ -1,9 +1,12 @@
 FROM public.ecr.aws/lambda/nodejs:20
 
-# COPY *.js package*.json /var/task/
-COPY . /var/task/
+COPY package*.json /var/task/
 
 RUN npm install 
+
+COPY . /var/task/
+
+
 
 # RUN npm ci --production
 

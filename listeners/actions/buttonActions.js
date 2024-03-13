@@ -1,5 +1,6 @@
 const { firstModal } = require("../../blocks/modal");
 const { plainTextInput } = require("../../blocks/textInput");
+const { firstView, noViewUpdated, thanksView } = require("../../blocks/view");
 
 module.exports.register = (app) => {
   app.action("static_select_action", async ({ ack, body, say }) => {
@@ -36,54 +37,10 @@ module.exports.register = (app) => {
   });
 
   app.action("open_modal_button", async ({ ack, body, client }) => {
-    // Potwierdź akcję
     await ack();
 
     try {
-      const result = await client.views.open({
-        trigger_id: body.trigger_id,
-        view: {
-          type: "modal",
-          callback_id: "yes_no_modal",
-          title: {
-            type: "plain_text",
-            text: "Ok?",
-          },
-          blocks: [
-            {
-              type: "section",
-              text: {
-                type: "mrkdwn",
-                text: "Is everything OK?",
-              },
-              accessory: {
-                type: "static_select",
-                placeholder: {
-                  type: "plain_text",
-                  text: "Wybierz opcję",
-                },
-                options: [
-                  {
-                    text: {
-                      type: "plain_text",
-                      text: "Yes",
-                    },
-                    value: "yes",
-                  },
-                  {
-                    text: {
-                      type: "plain_text",
-                      text: "No",
-                    },
-                    value: "no",
-                  },
-                ],
-                action_id: "decision_select",
-              },
-            },
-          ],
-        },
-      });
+      const result = await client.views.open(firstView(body.trigger_id));
     } catch (error) {
       console.error(error);
     }
@@ -112,70 +69,57 @@ module.exports.register = (app) => {
   app.action("decision_select", async ({ ack, body, client, action }) => {
     await ack();
 
-    console.log("body: ", JSON.stringify(body));
-    console.log("action: ", JSON.stringify(action));
     if (action.selected_option.value === "no") {
-      await client.views.update({
-        view_id: body.view.id,
-        view: {
-          type: "modal",
-          callback_id: "yes_no_modal_updated",
-          title: {
-            type: "plain_text",
-            text: "We're sorry to hear that",
-          },
-          submit: {
-            type: "plain_text",
-            text: "Submit",
-            emoji: true,
-          },
-          close: {
-            type: "plain_text",
-            text: "Cancel",
-            emoji: true,
-          },
-          blocks: [
-            {
-              type: "input",
-              block_id: "additional_info",
-              element: {
-                type: "plain_text_input",
-                action_id: "info_input",
-                multiline: true,
-              },
-              label: {
-                type: "plain_text",
-                text: "Tell us more about the problem: ",
-              },
-            },
-          ],
-        },
-      });
-    } else if (action.selected_option.value === "yes") {
-      // Jeśli użytkownik wybierze "Tak", możemy zakończyć modal lub podjąć inną akcję
-      // Tutaj można dodać logikę, co zrobić, gdy użytkownik wybierze "Tak"
+      if (body.view.blocks.length == 1) {
+        let newView = {};
+        newView.blocks = body.view.blocks;
 
-      // close modal
+        newView.blocks.push(...noViewUpdated().blocks);
+        newView.callback_id = noViewUpdated().callback_id;
+        newView.title = noViewUpdated().title;
+        newView.submit = noViewUpdated().submit;
+        newView.close = noViewUpdated().close;
+        newView.type = noViewUpdated().type;
+
+        console.log("newView", JSON.stringify(newView));
+
+        await client.views.update({
+          view_id: body.view.id,
+          view: newView,
+        });
+      }
+    } else if (action.selected_option.value === "yes") {
+      let newView = {};
+      newView.blocks = body.view.blocks;
+      newView.submit = {
+        type: "plain_text",
+        text: "Submit",
+        emoji: true,
+      };
+      newView.close = {
+        type: "plain_text",
+        text: "Cancel",
+        emoji: true,
+      };
+      // newView.
       await client.views.update({
         view_id: body.view.id,
-        view: {
-          type: "modal",
-          callback_id: "yes_no_modal_updated",
-          title: {
-            type: "plain_text",
-            text: "Thank you!",
-          },
-          blocks: [
-            {
-              type: "section",
-              text: {
-                type: "mrkdwn",
-                text: "Thank you for your time. Have a good day!",
-              },
-            },
-          ],
-        },
+        view: thanksView(),
       });
     }
+  });
+
+  app.view("no_view_id", async ({ ack, body, client }) => {
+    await ack();
+
+    console.log("body", JSON.stringify(body));
+
+    let input = body.view.state.values.block_no_id.info_input.value;
+    console.log("input", input);
+
+    await client.views.update({
+      view_id: body.view.id,
+      view: thanksView(),
+    });
   });
 };
