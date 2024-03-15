@@ -11,14 +11,4 @@ module.exports.messageEvents = (app) => {
       text: "Do you have time for a little poll?",
     });
   });
-
-  app.message("test view", async ({ message, say }) => {
-    let newBlocks = [];
-    newBlocks.push(textBlock("Test view?"));
-    newBlocks.push(button("test_view", "Test view"));
-    await say({
-      blocks: newBlocks,
-      text: "Test view?",
-    });
-  });
 };
