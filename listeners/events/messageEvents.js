@@ -1,4 +1,4 @@
-const { textBlock } = require("../../templates/blocks/text/text");
+const { textBlock, headerBlock } = require("../../templates/blocks/text/text");
 const {
   button,
   basicButton,
@@ -19,19 +19,19 @@ module.exports.messageEvents = (app) => {
   app.message("two buttons", async ({ message, say }) => {
     let newBlock = [];
 
-    let button1 = basicButton("yes", "Yes");
-    let button2 = basicButton("no", "No");
+    let button1 = basicButton("ok", "wszystko ok!");
+    let button2 = basicButton("no", "nie najlepiej");
     let actionButtons = buttonAction([button1, button2]);
-    let text = textBlock("Is everything okay?");
-    newBlock.push(text);
+    let text1 = headerBlock(
+      "Cześć! Tu Moody! Twój kaliopowy bot nastrojowy.",
+      true
+    );
+    let text2 = textBlock(
+      "Jak co miesiąc chciałem zapytać czy wszystko w porządku i czy jest coś, czym chciałbyś/abyś się z nami podzielić?"
+    );
+    newBlock.push(text1);
+    newBlock.push(text2);
     newBlock.push(actionButtons);
-
-    // let button1 = button("yes", "Yes");
-    // let button2 = button("no", "No");
-    // let text = textBlock("Is everything okay?");
-    // newBlock.push(text);
-    // newBlock.push(button1);
-    // newBlock.push(button2);
     await say({
       blocks: newBlock,
       // text: "Is everything okay?",

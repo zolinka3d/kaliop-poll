@@ -12,7 +12,7 @@ module.exports.buttonActions = (app) => {
     }
   });
 
-  app.action("yes", async ({ ack, body, client }) => {
+  app.action("ok", async ({ ack, body, client }) => {
     console.log("body message.ts", JSON.stringify(body.message.ts));
     console.log("body channel.id", JSON.stringify(body.channel.id));
     await ack();
@@ -20,7 +20,7 @@ module.exports.buttonActions = (app) => {
       token: process.env.SLACK_BOT_TOKEN,
       ts: body.message.ts,
       channel: body.channel.id,
-      text: "Thank you for feedback!",
+      text: "Dziękujemy za Twoją opinię. Jest ona dla nas bardzo ważna i pomaga udoskonalać nasze działania.",
       blocks: [],
     });
   });

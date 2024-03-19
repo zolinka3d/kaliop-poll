@@ -12,10 +12,17 @@ module.exports.text = (text, type) => {
   }
 };
 
-module.exports.textBlock = (text) => {
+module.exports.textBlock = (text, type) => {
   let newBlock = {
     type: "section",
-    text: this.text(text),
+    text: this.text(text, type),
   };
   return newBlock;
+};
+
+module.exports.headerBlock = (text) => {
+  return {
+    type: "header",
+    text: this.text(text),
+  };
 };
