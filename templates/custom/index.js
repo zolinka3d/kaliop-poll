@@ -2,7 +2,7 @@ const { modal, modalWithSubmitButtons } = require("../modals/modal");
 const { text, textBlock } = require("../blocks/text/text");
 const { openView, updateView } = require("../views/views");
 const { staticSelect, options } = require("../blocks/accesories/staticSelect");
-
+const { radioButtons } = require("../blocks/accesories/checkbox");
 const { multineInput } = require("../blocks/input/input");
 
 module.exports.firstView = (trigger_id) => {
@@ -58,7 +58,19 @@ module.exports.noInputView = (trigger_id) => {
     "no_input",
     "Czego dotyczy twój problem? Jak możemy Ci pomóc? Jeżeli chcesz przedstaw się nam."
   );
+  let newOptions = options([
+    "Tak, chcę pozostać anonimowy",
+    "Nie, chcę się przedstawić",
+  ]);
+  let checkbox = radioButtons(
+    "no_input_checkbox",
+    "no_input_checkbox",
+    newOptions,
+    "Czy chcesz pozostać anonimowy?"
+  );
   newModal.blocks.push(multilineInput);
+  newModal.blocks.push(checkbox);
   let newView = openView(trigger_id, newModal);
+  console.log("no input view", JSON.stringify(newView));
   return newView;
 };

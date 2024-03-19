@@ -1,0 +1,15 @@
+const { text } = require("../text/text");
+
+module.exports.radioButtons = (block_id, action_id, options, label) => {
+  let newBlock = {
+    type: "input",
+    block_id: block_id,
+    element: {
+      type: "radio_buttons",
+      options: options,
+      action_id: action_id,
+    },
+    label: text(label),
+  };
+  return newBlock;
+};
