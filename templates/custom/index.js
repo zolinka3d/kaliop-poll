@@ -47,3 +47,18 @@ module.exports.thanksView = (view_id) => {
   let newView = updateView(view_id, newModal);
   return newView;
 };
+
+module.exports.noInputView = (trigger_id) => {
+  let newModal = modalWithSubmitButtons(
+    "no_input_view",
+    "We're sorry to hear that"
+  );
+  let multilineInput = multineInput(
+    "no_input_block",
+    "no_input",
+    "Please tell us what's wrong"
+  );
+  newModal.blocks.push(multilineInput);
+  let newView = openView(trigger_id, newModal);
+  return newView;
+};
