@@ -1,9 +1,14 @@
 const { modal, modalWithSubmitButtons } = require("../modals/modal");
-const { text, textBlock } = require("../blocks/text/text");
+const { text, textBlock, headerBlock } = require("../blocks/text/text");
 const { openView, updateView } = require("../views/views");
 const { staticSelect, options } = require("../blocks/accesories/staticSelect");
 const { radioButtons } = require("../blocks/accesories/radioButton");
 const { multineInput } = require("../blocks/input/input");
+const {
+  basicButton,
+  buttonAction,
+  button,
+} = require("../blocks/buttons/button");
 
 module.exports.firstView = (trigger_id) => {
   let newModal = modal("yes_no_modal", "Ok?");
@@ -70,4 +75,31 @@ module.exports.noInputView = (trigger_id) => {
   let newView = openView(trigger_id, newModal);
   console.log("no input view", JSON.stringify(newView));
   return newView;
+};
+
+module.exports.twoButtonsBlock = () => {
+  let newBlock = [];
+
+  let button1 = basicButton("ok", "wszystko ok!");
+  let button2 = basicButton("no", "mam sprawę");
+  let actionButtons = buttonAction([button1, button2]);
+  let text1 = headerBlock(
+    "Cześć! Tu Moody! Twój kaliopowy bot nastrojowy.",
+    true
+  );
+  let text2 = textBlock(
+    "Jak co miesiąc chciałem zapytać czy wszystko w porządku i czy jest coś, czym chcesz się z nami podzielić?"
+  );
+  newBlock.push(text1);
+  newBlock.push(text2);
+  newBlock.push(actionButtons);
+
+  return newBlock;
+};
+
+module.exports.openViewButtons = () => {
+  let newBlock = [];
+  newBlock.push(textBlock("Do you have time for a little poll?"));
+  newBlock.push(button("open_modal_button", "Open a view"));
+  return newBlock;
 };
