@@ -11,7 +11,7 @@ module.exports.modal = (callback_id, title_text) => {
 };
 
 module.exports.modalWithSubmitButtons = (callback_id, title_text) => {
-  let modal = this.modal(callback_id, title_text);
+  const modal = this.modal(callback_id, title_text);
   modal.submit = {
     type: "plain_text",
     text: "Wyślij",

@@ -1,7 +1,7 @@
 const { text } = require("../text/text");
 
 module.exports.radioButtons = (block_id, action_id, options, label) => {
-  let newBlock = {
+  const newBlock = {
     type: "input",
     block_id: block_id,
     element: {

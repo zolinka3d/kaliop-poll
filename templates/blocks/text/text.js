@@ -13,7 +13,7 @@ module.exports.text = (text, type) => {
 };
 
 module.exports.textBlock = (text, type) => {
-  let newBlock = {
+  const newBlock = {
     type: "section",
     text: this.text(text, type),
   };

@@ -6,7 +6,7 @@ module.exports.selectActions = (app) => {
 
     if (action.selected_option.value === "No") {
       if (body.view.blocks.length == 1) {
-        let noViewUpdate = noViewUpdated(body.view.id);
+        const noViewUpdate = noViewUpdated(body.view.id);
 
         console.log("newView", JSON.stringify(noViewUpdate));
 

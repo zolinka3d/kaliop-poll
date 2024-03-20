@@ -1,7 +1,7 @@
 const { text } = require("../text/text");
 
 module.exports.multineInput = (block_id, action_id, label) => {
-  let newBlock = {
+  const newBlock = {
     type: "input",
     block_id: block_id,
     element: {

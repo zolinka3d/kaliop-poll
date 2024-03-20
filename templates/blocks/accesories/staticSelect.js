@@ -1,7 +1,7 @@
 const { text: createText } = require("../text/text");
 
 module.exports.staticSelect = (action_id, text, options, placeholder) => {
-  let newBlock = {
+  const newBlock = {
     type: "section",
     text: createText(text, "m"),
     accessory: {
@@ -15,7 +15,7 @@ module.exports.staticSelect = (action_id, text, options, placeholder) => {
 };
 
 module.exports.options = (optionArrays) => {
-  let options = [];
+  const options = [];
   optionArrays.forEach((option) => {
     options.push({
       text: createText(option),
@@ -26,7 +26,7 @@ module.exports.options = (optionArrays) => {
 };
 
 module.exports.staticSelectInput = (action_id, text, options, placeholder) => {
-  let newBlock = {
+  const newBlock = {
     type: "input",
     block_id: action_id,
     element: {

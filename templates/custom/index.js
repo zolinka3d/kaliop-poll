@@ -14,6 +14,9 @@ const {
   button,
 } = require("../blocks/buttons/button");
 
+const poll = require("../../config/poll.json");
+const welcomeMessage = require("../../config/welcomeMessage.json");
+
 module.exports.firstView = (trigger_id) => {
   const newModal = modal("yes_no_modal", "Ok?");
   const newOptions = options(["Yes", "No"]);
@@ -58,33 +61,32 @@ module.exports.thanksView = (view_id) => {
 };
 
 module.exports.noInputView = (trigger_id) => {
+  console.log("json file", JSON.stringify(poll));
+
   const newModal = modalWithSubmitButtons("no_input_view", "Moody");
 
-  const selectOptions = options(["1", "2", "3", "4", "5"]);
+  const selectOptions = options(poll.inputValues.select.options);
   const selectBlock = staticSelectInput(
     "select_block",
-    "Jak się czujesz?",
+    poll.inputValues.select.text,
     selectOptions,
-    "Wybierz ocenę swojego samopoczucia od 1 do 5"
+    poll.inputValues.select.placeholder
   );
   const multilineInput = multineInput(
     "no_input_block",
     "no_input",
-    "Czego dotyczy Twój problem? Jak możemy Ci pomóc?"
+    poll.inputValues.multilineInput.text
   );
-  const radioOptions = options([
-    "Tak, chcę pozostać anonimowy",
-    "Nie, chcę się przedstawić",
-  ]);
-  const checkbox = radioButtons(
+  const radioOptions = options(poll.inputValues.radioButtons.options);
+  const radioBlock = radioButtons(
     "no_input_radio_buttons",
     "no_input_radio_buttons",
     radioOptions,
-    "Czy chcesz pozostać anonimowy?"
+    poll.inputValues.radioButtons.text
   );
   newModal.blocks.push(selectBlock);
   newModal.blocks.push(multilineInput);
-  newModal.blocks.push(checkbox);
+  newModal.blocks.push(radioBlock);
   const newView = openView(trigger_id, newModal);
   console.log("no input view", JSON.stringify(newView));
   return newView;
@@ -93,16 +95,11 @@ module.exports.noInputView = (trigger_id) => {
 module.exports.twoButtonsBlock = () => {
   const newBlock = [];
 
-  const button1 = basicButton("ok", "wszystko ok!");
-  const button2 = basicButton("no", "mam sprawę");
+  const button1 = basicButton("ok", welcomeMessage.buttons[0].text);
+  const button2 = basicButton("no", welcomeMessage.buttons[1].text);
   const actionButtons = buttonAction([button1, button2]);
-  const text1 = headerBlock(
-    "Cześć! Tu Moody! Twój kaliopowy bot nastrojowy.",
-    true
-  );
-  const text2 = textBlock(
-    "Jak co miesiąc chciałem zapytać czy wszystko w porządku i czy jest coś, czym chcesz się z nami podzielić?"
-  );
+  const text1 = headerBlock(welcomeMessage.header, true);
+  const text2 = textBlock(welcomeMessage.text);
   newBlock.push(text1);
   newBlock.push(text2);
   newBlock.push(actionButtons);

@@ -1,0 +1,16 @@
+{
+  "inputValues": {
+    "select": {
+      "text": "Jak się czujesz?",
+      "placeholder": "Wybierz ocenę swojego samopoczucia od 1 do 5",
+      "options": ["1", "2", "3", "4", "5"]
+    },
+    "multilineInput": {
+      "text": "Czego dotyczy Twój problem? Jak możemy Ci pomóc?"
+    },
+    "radioButtons": {
+      "text": "Czy chcesz pozostać anonimowy?",
+      "options": ["Tak, chcę pozostać anonimowy", "Nie, chcę się przedstawić"]
+    }
+  }
+}

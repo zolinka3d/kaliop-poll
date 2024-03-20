@@ -1,5 +1,5 @@
 module.exports.button = (action_id, text) => {
-  let button = this.basicButton(action_id, text);
+  const button = this.basicButton(action_id, text);
   return {
     type: "actions",
     elements: [button],
