@@ -1,7 +1,11 @@
 const { modal, modalWithSubmitButtons } = require("../modals/modal");
 const { text, textBlock, headerBlock } = require("../blocks/text/text");
 const { openView, updateView } = require("../views/views");
-const { staticSelect, options } = require("../blocks/accesories/staticSelect");
+const {
+  staticSelect,
+  options,
+  staticSelectInput,
+} = require("../blocks/accesories/staticSelect");
 const { radioButtons } = require("../blocks/accesories/radioButton");
 const { multineInput } = require("../blocks/input/input");
 const {
@@ -11,9 +15,9 @@ const {
 } = require("../blocks/buttons/button");
 
 module.exports.firstView = (trigger_id) => {
-  let newModal = modal("yes_no_modal", "Ok?");
-  let newOptions = options(["Yes", "No"]);
-  let newBlock = staticSelect(
+  const newModal = modal("yes_no_modal", "Ok?");
+  const newOptions = options(["Yes", "No"]);
+  const newBlock = staticSelect(
     "decision_select",
     "Is everything ok?",
     newOptions,
@@ -22,23 +26,23 @@ module.exports.firstView = (trigger_id) => {
 
   newModal.blocks.push(newBlock);
 
-  let newView = openView(trigger_id, newModal);
+  const newView = openView(trigger_id, newModal);
   return newView;
 };
 
 module.exports.noViewUpdated = (view_id) => {
-  let newModal = modalWithSubmitButtons(
+  const newModal = modalWithSubmitButtons(
     "no_view_id",
     "We're sorry to hear that"
   );
 
-  let newBlock = multineInput(
+  const newBlock = multineInput(
     "block_no_id",
     "info_input",
     "Tell us more about the problem: "
   );
   newModal.blocks.push(newBlock);
-  let newView = updateView(view_id, newModal);
+  const newView = updateView(view_id, newModal);
 
   console.log("no View updated", JSON.stringify(newView));
 
@@ -46,48 +50,57 @@ module.exports.noViewUpdated = (view_id) => {
 };
 
 module.exports.thanksView = (view_id) => {
-  let newModal = modal("thanks_view", "Dziękuję!");
-  let newText = textBlock("Słyszymy się za miesiąc. Miłej pracy!");
+  const newModal = modal("thanks_view", "Thank you!");
+  const newText = textBlock("See you next month");
   newModal.blocks.push(newText);
-  let newView = updateView(view_id, newModal);
+  const newView = updateView(view_id, newModal);
   return newView;
 };
 
 module.exports.noInputView = (trigger_id) => {
-  let newModal = modalWithSubmitButtons("no_input_view", "Moody");
-  let multilineInput = multineInput(
+  const newModal = modalWithSubmitButtons("no_input_view", "Moody");
+
+  const selectOptions = options(["1", "2", "3", "4", "5"]);
+  const selectBlock = staticSelectInput(
+    "select_block",
+    "Jak się czujesz?",
+    selectOptions,
+    "Wybierz ocenę swojego samopoczucia od 1 do 5"
+  );
+  const multilineInput = multineInput(
     "no_input_block",
     "no_input",
     "Czego dotyczy Twój problem? Jak możemy Ci pomóc?"
   );
-  let newOptions = options([
+  const radioOptions = options([
     "Tak, chcę pozostać anonimowy",
     "Nie, chcę się przedstawić",
   ]);
-  let checkbox = radioButtons(
-    "no_input_checkbox",
-    "no_input_checkbox",
-    newOptions,
+  const checkbox = radioButtons(
+    "no_input_radio_buttons",
+    "no_input_radio_buttons",
+    radioOptions,
     "Czy chcesz pozostać anonimowy?"
   );
+  newModal.blocks.push(selectBlock);
   newModal.blocks.push(multilineInput);
   newModal.blocks.push(checkbox);
-  let newView = openView(trigger_id, newModal);
+  const newView = openView(trigger_id, newModal);
   console.log("no input view", JSON.stringify(newView));
   return newView;
 };
 
 module.exports.twoButtonsBlock = () => {
-  let newBlock = [];
+  const newBlock = [];
 
-  let button1 = basicButton("ok", "wszystko ok!");
-  let button2 = basicButton("no", "mam sprawę");
-  let actionButtons = buttonAction([button1, button2]);
-  let text1 = headerBlock(
+  const button1 = basicButton("ok", "wszystko ok!");
+  const button2 = basicButton("no", "mam sprawę");
+  const actionButtons = buttonAction([button1, button2]);
+  const text1 = headerBlock(
     "Cześć! Tu Moody! Twój kaliopowy bot nastrojowy.",
     true
   );
-  let text2 = textBlock(
+  const text2 = textBlock(
     "Jak co miesiąc chciałem zapytać czy wszystko w porządku i czy jest coś, czym chcesz się z nami podzielić?"
   );
   newBlock.push(text1);
@@ -98,8 +111,8 @@ module.exports.twoButtonsBlock = () => {
 };
 
 module.exports.openViewButtons = () => {
-  let newBlock = [];
+  const newBlock = [];
   newBlock.push(textBlock("Do you have time for a little poll?"));
-  newBlock.push(button("open_modal_button", "Open a view"));
+  newBlock.push(button("open_modal_button", "Open test poll"));
   return newBlock;
 };

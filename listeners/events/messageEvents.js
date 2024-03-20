@@ -4,14 +4,14 @@ const {
 } = require("../../templates/custom/index");
 
 module.exports.messageEvents = (app) => {
-  app.message("open view", async ({ message, say }) => {
+  app.message("test", async ({ message, say }) => {
     await say({
       blocks: openViewButtons(),
       text: "Do you have time for a little poll?",
     });
   });
 
-  app.message("two buttons", async ({ message, say }) => {
+  app.message("poll", async ({ message, say }) => {
     await say({
       blocks: twoButtonsBlock(),
     });
