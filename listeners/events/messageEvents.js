@@ -20,14 +20,14 @@ module.exports.messageEvents = (app) => {
     let newBlock = [];
 
     let button1 = basicButton("ok", "wszystko ok!");
-    let button2 = basicButton("no", "nie najlepiej");
+    let button2 = basicButton("no", "mam sprawę");
     let actionButtons = buttonAction([button1, button2]);
     let text1 = headerBlock(
       "Cześć! Tu Moody! Twój kaliopowy bot nastrojowy.",
       true
     );
     let text2 = textBlock(
-      "Jak co miesiąc chciałem zapytać czy wszystko w porządku i czy jest coś, czym chciałbyś/abyś się z nami podzielić?"
+      "Jak co miesiąc chciałem zapytać czy wszystko w porządku i czy jest coś, czym chcesz się z nami podzielić?"
     );
     newBlock.push(text1);
     newBlock.push(text2);

@@ -14,12 +14,12 @@ module.exports.modalWithSubmitButtons = (callback_id, title_text) => {
   let modal = this.modal(callback_id, title_text);
   modal.submit = {
     type: "plain_text",
-    text: "Submit",
+    text: "Wyślij",
     emoji: true,
   };
   modal.close = {
     type: "plain_text",
-    text: "Cancel",
+    text: "Anuluj",
     emoji: true,
   };
   return modal;
