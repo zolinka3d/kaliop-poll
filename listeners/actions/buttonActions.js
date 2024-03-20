@@ -1,4 +1,5 @@
 const { firstView, noInputView } = require("../../templates/custom");
+const thanksMessage = require("../../config/thanksMessage.json");
 
 module.exports.buttonActions = (app) => {
   app.action("open_modal_button", async ({ ack, body, client }) => {
@@ -20,7 +21,7 @@ module.exports.buttonActions = (app) => {
       token: process.env.SLACK_BOT_TOKEN,
       ts: body.message.ts,
       channel: body.channel.id,
-      text: "Dziękujemy za Twoją opinię. Jest ona dla nas bardzo ważna i pomaga udoskonalać nasze działania.",
+      text: thanksMessage.text,
       blocks: [],
     });
   });

@@ -1,6 +1,8 @@
 const { thanksView } = require("../../templates/custom");
 const { findChannelByUserId, history } = require("../../helpers/message");
 
+const thanksMessage = require("../../config/thanksMessage.json");
+
 module.exports.viewActions = (app) => {
   app.view("no_view_id", async ({ ack, body, client }) => {
     await ack();
@@ -43,7 +45,7 @@ module.exports.viewActions = (app) => {
       token: process.env.SLACK_BOT_TOKEN,
       ts: ts,
       channel: channelOfUser.id,
-      text: "Dziękujemy za Twoją opinię. Jest ona dla nas bardzo ważna i pomaga udoskonalać nasze działania.",
+      text: thanksMessage.text,
       blocks: [],
     });
   });
