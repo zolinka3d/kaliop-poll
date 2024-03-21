@@ -8,7 +8,7 @@ module.exports.buttonActions = (app) => {
 
     console.log("body", JSON.stringify(firstView(body.trigger_id)));
     try {
-      const result = await client.views.open(firstView(body.trigger_id));
+      await client.views.open(firstView(body.trigger_id));
     } catch (error) {
       console.error(error);
     }
@@ -31,7 +31,7 @@ module.exports.buttonActions = (app) => {
     console.log("no body", JSON.stringify(body));
     await ack();
     try {
-      const result = await client.views.open(noInputView(body.trigger_id));
+      await client.views.open(noInputView(body.trigger_id));
     } catch (error) {
       console.error(error);
     }

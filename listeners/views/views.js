@@ -1,7 +1,12 @@
 const { thanksView } = require("../../templates/custom/views/test");
-const { findChannelByUserId, history } = require("../../helpers/message");
-
+const {
+  findChannelByUserId,
+  history,
+  findMembers,
+} = require("../../helpers/message");
 const thanksMessage = require("../../config/thanksMessage.json");
+
+const { twoButtonsBlock } = require("../../templates/custom/blocks/poll/poll");
 
 module.exports.viewActions = (app) => {
   app.view("response_no_ok_view", async ({ ack, body, client }) => {
@@ -47,6 +52,30 @@ module.exports.viewActions = (app) => {
       channel: channelOfUser.id,
       text: thanksMessage.text,
       blocks: [],
+    });
+  });
+
+  app.view("create_poll_view", async ({ ack, body, client }) => {
+    await ack();
+
+    console.log("body", JSON.stringify(body));
+    console.log("body view", JSON.stringify(body.view));
+    const selectedConversations =
+      body.view.state.values.conversation_select.conversation_select
+        .selected_conversations;
+
+    console.log("selected conversation", selectedConversations);
+
+    const members = await findMembers(client, selectedConversations[0]);
+    console.log("members", members);
+
+    members.map(async (member) => {
+      // send message to every member
+      await client.chat.postMessage({
+        token: process.env.SLACK_BOT_TOKEN,
+        channel: member,
+        blocks: twoButtonsBlock(),
+      });
     });
   });
 };

@@ -4,7 +4,12 @@ const { staticSelectInput } = require("../../../blocks/input/staticSelect");
 const { multineInput } = require("../../../blocks/input/multilineInput");
 const { radioButtons } = require("../../../blocks/input/radioButton");
 const { openView } = require("../../../views/views");
-
+const {
+  multiconversationsSelect,
+} = require("../../../blocks/accesories/staticSelect");
+const {
+  multiConversationsSelect,
+} = require("../../../blocks/input/staticSelect");
 const poll = require("../../../../config/poll.json");
 
 module.exports.noInputView = (trigger_id) => {
@@ -36,5 +41,19 @@ module.exports.noInputView = (trigger_id) => {
   newModal.blocks.push(radioBlock);
   const newView = openView(trigger_id, newModal);
   console.log("no input view", JSON.stringify(newView));
+  return newView;
+};
+
+module.exports.createPollView = (trigger_id) => {
+  const newModal = modalWithSubmitButtons("create_poll_view", "Moody");
+  const converationSelect = multiConversationsSelect(
+    "conversation_select",
+    "Select a conversation",
+    "Select a conversation"
+  );
+  newModal.blocks.push(converationSelect);
+
+  const newView = openView(trigger_id, newModal);
+
   return newView;
 };

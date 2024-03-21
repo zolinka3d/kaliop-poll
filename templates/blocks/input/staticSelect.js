@@ -14,3 +14,17 @@ module.exports.staticSelectInput = (action_id, text, options, placeholder) => {
   };
   return newBlock;
 };
+
+module.exports.multiConversationsSelect = (action_id, text, placeholder) => {
+  const newBlock = {
+    type: "input",
+    block_id: action_id,
+    element: {
+      type: "multi_conversations_select",
+      placeholder: createText(placeholder),
+      action_id: action_id,
+    },
+    label: createText(text),
+  };
+  return newBlock;
+};

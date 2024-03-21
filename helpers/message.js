@@ -51,3 +51,14 @@ module.exports.history = async (channelId, client) => {
     return null;
   }
 };
+
+module.exports.findMembers = async (client, channelId) => {
+  const members = await client.conversations.members({
+    token: process.env.SLACK_BOT_TOKEN,
+    channel: channelId,
+  });
+
+  console.log("members", JSON.stringify(members));
+
+  return members.members;
+};

@@ -1,3 +1,5 @@
+const submitButtons = require("../../config/submitButtons.json");
+
 module.exports.modal = (callback_id, title_text) => {
   return {
     type: "modal",
@@ -14,12 +16,12 @@ module.exports.modalWithSubmitButtons = (callback_id, title_text) => {
   const modal = this.modal(callback_id, title_text);
   modal.submit = {
     type: "plain_text",
-    text: "Wyślij",
+    text: submitButtons.submit.text,
     emoji: true,
   };
   modal.close = {
     type: "plain_text",
-    text: "Anuluj",
+    text: submitButtons.close.text,
     emoji: true,
   };
   return modal;

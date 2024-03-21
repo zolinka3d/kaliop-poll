@@ -1,3 +1,5 @@
+const { createPollView } = require("../../templates/custom/views/poll/poll");
+
 module.exports.commands = (app) => {
   app.command("/kaliopoll", async ({ command, body, client, ack, respond }) => {
     // client?
@@ -11,6 +13,6 @@ module.exports.commands = (app) => {
     console.log("body", JSON.stringify(body));
     console.log("client", JSON.stringify(client));
 
-    await respond(`You said: ${command.text}`);
+    await client.views.open(createPollView(body.trigger_id));
   });
 };
