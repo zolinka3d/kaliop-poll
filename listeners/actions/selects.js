@@ -1,7 +1,10 @@
-const { thanksView, noViewUpdated } = require("../../templates/custom");
+const {
+  thanksView,
+  noViewUpdated,
+} = require("../../templates/custom/views/test");
 
 module.exports.selectActions = (app) => {
-  app.action("decision_select", async ({ ack, body, client, action }) => {
+  app.action("test_decision_select", async ({ ack, body, client, action }) => {
     await ack();
 
     if (action.selected_option.value === "No") {

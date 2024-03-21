@@ -1,4 +1,4 @@
-const { text } = require("../text/text");
+const { text: createText } = require("../text/text");
 
 module.exports.radioButtons = (block_id, action_id, options, label) => {
   const newBlock = {
@@ -9,7 +9,7 @@ module.exports.radioButtons = (block_id, action_id, options, label) => {
       options: options,
       action_id: action_id,
     },
-    label: text(label),
+    label: createText(label),
   };
   return newBlock;
 };

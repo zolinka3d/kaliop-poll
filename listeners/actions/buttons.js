@@ -1,8 +1,9 @@
-const { firstView, noInputView } = require("../../templates/custom");
+const { firstView } = require("../../templates/custom/views/test");
+const { noInputView } = require("../../templates/custom/views/poll/poll");
 const thanksMessage = require("../../config/thanksMessage.json");
 
 module.exports.buttonActions = (app) => {
-  app.action("open_modal_button", async ({ ack, body, client }) => {
+  app.action("open_modal_test_button", async ({ ack, body, client }) => {
     await ack();
 
     console.log("body", JSON.stringify(firstView(body.trigger_id)));
@@ -13,7 +14,7 @@ module.exports.buttonActions = (app) => {
     }
   });
 
-  app.action("ok", async ({ ack, body, client }) => {
+  app.action("response_ok", async ({ ack, body, client }) => {
     console.log("body message.ts", JSON.stringify(body.message.ts));
     console.log("body channel.id", JSON.stringify(body.channel.id));
     await ack();
@@ -26,7 +27,7 @@ module.exports.buttonActions = (app) => {
     });
   });
 
-  app.action("no", async ({ ack, body, client }) => {
+  app.action("response_no_ok", async ({ ack, body, client }) => {
     console.log("no body", JSON.stringify(body));
     await ack();
     try {

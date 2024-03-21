@@ -1,10 +1,10 @@
-const { thanksView } = require("../../templates/custom");
+const { thanksView } = require("../../templates/custom/views/test");
 const { findChannelByUserId, history } = require("../../helpers/message");
 
 const thanksMessage = require("../../config/thanksMessage.json");
 
 module.exports.viewActions = (app) => {
-  app.view("no_view_id", async ({ ack, body, client }) => {
+  app.view("response_no_ok_view", async ({ ack, body, client }) => {
     await ack();
 
     console.log("body", JSON.stringify(body));
@@ -17,7 +17,7 @@ module.exports.viewActions = (app) => {
     await client.views.update(newView);
   });
 
-  app.view("no_input_view", async ({ ack, body, client }) => {
+  app.view("no_ok_view_submitted", async ({ ack, body, client }) => {
     await ack();
 
     const selectInput =

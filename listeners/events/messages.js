@@ -1,8 +1,5 @@
-const {
-  twoButtonsBlock,
-  openViewButtons,
-} = require("../../templates/custom/index");
-
+const { openViewButtons } = require("../../templates/custom/views/test/index");
+const { twoButtonsBlock } = require("../../templates/custom/blocks/poll/poll");
 module.exports.messageEvents = (app) => {
   app.message("test", async ({ message, say }) => {
     await say({
