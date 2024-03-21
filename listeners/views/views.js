@@ -69,8 +69,8 @@ module.exports.viewActions = (app) => {
     const members = await findMembers(client, selectedConversations[0]);
     console.log("members", members);
 
+    // send message to every member
     members.map(async (member) => {
-      // send message to every member
       await client.chat.postMessage({
         token: process.env.SLACK_BOT_TOKEN,
         channel: member,
