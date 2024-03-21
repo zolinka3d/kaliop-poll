@@ -2,10 +2,12 @@ const { WebClient } = require("@slack/web-api");
 
 const web = new WebClient(process.env.SLACK_BOT_TOKEN);
 
+const welcomeMessage = require("../config/welcomeMessage.json");
+
 module.exports.findChannelByUserId = async (userId) => {
   try {
     const result = await web.conversations.list({
-      types: "mpim,im",
+      types: "im",
       limit: 100,
     });
 
@@ -31,15 +33,21 @@ module.exports.history = async (channelId, client) => {
   const history = await client.conversations.history({
     token: process.env.SLACK_BOT_TOKEN,
     channel: channelId,
-    limit: 1,
+    limit: 20,
   });
-
   if (history.ok) {
-    console.log("last message", history.messages[0]);
-    console.log("ts", history.messages[0].ts);
-  }
+    let lastMessage = history.messages[0];
+    let i = 0;
+    while (!lastMessage.text.includes(welcomeMessage.text)) {
+      i++;
+      lastMessage = history.messages[i];
+    }
 
-  return {
-    ts: history.messages[0].ts,
-  };
+    console.log("last message", lastMessage);
+
+    return lastMessage.ts;
+  } else {
+    console.error("Error fetching history:", history.error);
+    return null;
+  }
 };

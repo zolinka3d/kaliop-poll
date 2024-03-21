@@ -1,4 +1,4 @@
-const { text } = require("../text/text");
+const { text: createText } = require("../text/text");
 
 module.exports.multineInput = (block_id, action_id, label) => {
   const newBlock = {
@@ -9,7 +9,7 @@ module.exports.multineInput = (block_id, action_id, label) => {
       action_id: action_id,
       multiline: true,
     },
-    label: text(label),
+    label: createText(label),
   };
   return newBlock;
 };

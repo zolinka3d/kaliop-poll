@@ -1,18 +1,16 @@
 const { modal, modalWithSubmitButtons } = require("../modals/modal");
 const { text, textBlock, headerBlock } = require("../blocks/text/text");
 const { openView, updateView } = require("../views/views");
-const {
-  staticSelect,
-  options,
-  staticSelectInput,
-} = require("../blocks/accesories/staticSelect");
-const { radioButtons } = require("../blocks/accesories/radioButton");
-const { multineInput } = require("../blocks/input/input");
+const { staticSelect } = require("../blocks/accesories/staticSelect");
+const { radioButtons } = require("../blocks/input/radioButton");
+const { multineInput } = require("../blocks/input/multilineInput");
 const {
   basicButton,
   buttonAction,
   button,
 } = require("../blocks/buttons/button");
+const { staticSelectInput } = require("../blocks/input/staticSelect");
+const { options } = require("../blocks/helpers/helpers");
 
 const poll = require("../../config/poll.json");
 const welcomeMessage = require("../../config/welcomeMessage.json");
