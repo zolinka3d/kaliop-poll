@@ -6,10 +6,10 @@ const { homeOpened } = require("./events/homeOpened");
 const { commands } = require("./commands/command");
 
 module.exports.registerListeners = (app) => {
-  messageEvents(app);
-  buttonActions(app);
-  viewActions(app);
-  selectActions(app);
-  homeOpened(app);
-  commands(app);
+	messageEvents(app);
+	buttonActions(app);
+	viewActions(app);
+	selectActions(app);
+	homeOpened(app);
+	commands(app);
 };

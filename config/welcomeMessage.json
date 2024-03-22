@@ -1,12 +1,12 @@
 {
-  "header": "Cześć! Tu Moody! Twój kaliopowy bot nastrojowy.",
-  "text": "Jak co miesiąc chciałem zapytać czy wszystko w porządku i czy jest coś, czym chcesz się z nami podzielić?",
-  "buttons": [
-    {
-      "text": "wszystko ok!"
-    },
-    {
-      "text": "mam sprawę"
-    }
-  ]
+	"header": "Cześć! Tu Moody! Twój kaliopowy bot nastrojowy.",
+	"text": "Jak co miesiąc chciałem zapytać czy wszystko w porządku i czy jest coś, czym chcesz się z nami podzielić?",
+	"buttons": [
+		{
+			"text": "wszystko ok!"
+		},
+		{
+			"text": "mam sprawę"
+		}
+	]
 }

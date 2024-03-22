@@ -1,0 +1,8 @@
+{
+	"$schema": "https://json.schemastore.org/jsconfig",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"resolveJsonModule": true
+	}
+}
