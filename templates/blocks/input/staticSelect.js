@@ -7,6 +7,7 @@ module.exports.staticSelectInput = (action_id, text, options, placeholder) => {
 		element: {
 			type: "static_select",
 			placeholder: createText(placeholder),
+			initial_option: options[options.length - 1],
 			options: options,
 			action_id: action_id,
 		},

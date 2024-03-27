@@ -1,8 +1,8 @@
 {
-  "submit": {
-    "text": "Wyślij"
-  },
-  "close": {
-    "text": "Anuluj"
-  }
+	"submit": {
+		"text": "Wyślij"
+	},
+	"close": {
+		"text": "Anuluj"
+	}
 }

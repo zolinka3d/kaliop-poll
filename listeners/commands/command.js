@@ -13,6 +13,8 @@ module.exports.commands = (app) => {
 		console.log("body", JSON.stringify(body));
 		console.log("client", JSON.stringify(client));
 
-		await client.views.open(createPollView(body.trigger_id));
+		const newView = createPollView(body.trigger_id);
+		console.log("new createPollView", JSON.stringify(newView));
+		await client.views.open(newView);
 	});
 };

@@ -2,6 +2,10 @@ const { firstView } = require("../../templates/custom/views/test");
 const { noInputView } = require("../../templates/custom/views/poll/poll");
 const thanksMessage = require("../../config/thanksMessage.json");
 
+// /**
+//  *
+//  * @param {import("@slack/bolt").App<import("@slack/bolt/dist/types/helpers").StringIndexed>} app
+//  */
 module.exports.buttonActions = (app) => {
 	app.action("open_modal_test_button", async ({ ack, body, client }) => {
 		await ack();

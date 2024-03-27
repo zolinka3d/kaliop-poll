@@ -3,7 +3,13 @@ const {
 	findChannelByUserId,
 	history,
 	findMembers,
+	findChannelName,
 } = require("../../helpers/message");
+
+const { createId } = require("../../helpers/createId");
+const {
+	updateCreatingPollView,
+} = require("../../templates/custom/views/poll/poll");
 const thanksMessage = require("../../config/thanksMessage.json");
 
 const { twoButtonsBlock } = require("../../templates/custom/blocks/poll/poll");
@@ -60,22 +66,27 @@ module.exports.viewActions = (app) => {
 
 		console.log("body", JSON.stringify(body));
 		console.log("body view", JSON.stringify(body.view));
-		const selectedConversations =
+		const selectedConversation =
 			body.view.state.values.conversation_select.conversation_select
-				.selected_conversations;
+				.selected_conversation;
 
-		console.log("selected conversation", selectedConversations);
+		console.log("selected conversation", selectedConversation);
 
-		const members = await findMembers(client, selectedConversations[0]);
-		console.log("members", members);
-
-		// send message to every member
-		members.map(async (member) => {
-			await client.chat.postMessage({
-				token: process.env.SLACK_BOT_TOKEN,
-				channel: member,
-				blocks: twoButtonsBlock(),
+		try {
+			const members = await findMembers(client, selectedConversation);
+			members.map(async (member) => {
+				await client.chat.postMessage({
+					token: process.env.SLACK_BOT_TOKEN,
+					channel: member,
+					blocks: twoButtonsBlock(),
+				});
 			});
-		});
+
+			const pollId = await createId(client, selectedConversation);
+
+			console.log("poll_id", pollId);
+		} catch (error) {
+			console.log("catched error", error);
+		}
 	});
 };

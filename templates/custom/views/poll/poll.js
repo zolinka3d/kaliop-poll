@@ -1,15 +1,17 @@
-const { modalWithSubmitButtons } = require("../../../modals/modal");
+const { modalWithSubmitButtons, modal } = require("../../../modals/modal");
 const { options } = require("../../../blocks/helpers/helpers");
 const { staticSelectInput } = require("../../../blocks/input/staticSelect");
-const { multineInput } = require("../../../blocks/input/multilineInput");
+const { multineInput, input } = require("../../../blocks/input/multilineInput");
 const { radioButtons } = require("../../../blocks/input/radioButton");
-const { openView } = require("../../../views/views");
-const {
-	multiconversationsSelect,
-} = require("../../../blocks/accesories/staticSelect");
+const { openView, updateView } = require("../../../views/views");
 const {
 	multiConversationsSelect,
 } = require("../../../blocks/input/staticSelect");
+
+const {
+	multiConversationsSelectSection,
+} = require("../../../blocks/accesories/staticSelect");
+const { textBlock } = require("../../../blocks/text/text");
 const poll = require("../../../../config/poll.json");
 
 module.exports.noInputView = (trigger_id) => {
@@ -45,8 +47,9 @@ module.exports.noInputView = (trigger_id) => {
 };
 
 module.exports.createPollView = (trigger_id) => {
-	const newModal = modalWithSubmitButtons("create_poll_view", "Moody");
-	const converationSelect = multiConversationsSelect(
+	const newModal = modal("create_poll_view", "Moody");
+	const converationSelect = multiConversationsSelectSection(
+		//
 		"conversation_select",
 		"Select a conversation",
 		"Select a conversation",
@@ -55,5 +58,22 @@ module.exports.createPollView = (trigger_id) => {
 
 	const newView = openView(trigger_id, newModal);
 
+	return newView;
+};
+
+module.exports.updateCreatingPollViewError = (view_id, view_blocks, text) => {
+	const newModal = modal("create_poll_view", "Moody");
+	newModal.blocks = [view_blocks[0]];
+	const newErrorBlock = textBlock(text);
+	newModal.blocks.push(newErrorBlock);
+
+	const newView = updateView(view_id, newModal);
+	return newView;
+};
+
+module.exports.updateCreatingPollViewCorrect = (view_id, view_blocks) => {
+	const newModal = modalWithSubmitButtons("create_poll_view", "Moody");
+	newModal.blocks = [view_blocks[0]];
+	const newView = updateView(view_id, newModal);
 	return newView;
 };

@@ -29,6 +29,10 @@ module.exports.findChannelByUserId = async (userId) => {
 	}
 };
 
+// jsdoc
+/**
+ * @param {string} channelId
+ */
 module.exports.history = async (channelId, client) => {
 	const history = await client.conversations.history({
 		token: process.env.SLACK_BOT_TOKEN,
@@ -53,12 +57,30 @@ module.exports.history = async (channelId, client) => {
 };
 
 module.exports.findMembers = async (client, channelId) => {
-	const members = await client.conversations.members({
-		token: process.env.SLACK_BOT_TOKEN,
-		channel: channelId,
-	});
+	try {
+		const members = await client.conversations.members({
+			token: process.env.SLACK_BOT_TOKEN,
+			channel: channelId,
+		});
 
-	console.log("members", JSON.stringify(members));
+		// console.log("members", JSON.stringify(members));
 
-	return members.members;
+		return members.members;
+	} catch (error) {
+		console.error("Error occurred while fetching members:", error);
+		throw error;
+	}
+};
+
+module.exports.findChannelName = async (client, channelId) => {
+	try {
+		const channelInfo = await client.conversations.info({
+			token: process.env.SLACK_BOT_TOKEN,
+			channel: channelId,
+		});
+		return channelInfo.channel.name;
+	} catch (error) {
+		console.error("Error occurred while fetching channel name:", error);
+		throw error;
+	}
 };
